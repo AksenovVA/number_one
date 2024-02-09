@@ -1,3 +1,6 @@
+import math
+
+
 def prod_non_zero_diag(x):
     """Compute product of nonzero elements from matrix diagonal.
 
@@ -108,9 +111,9 @@ def pairwise_distance(x, y):
 
     Not vectorized implementation.
     """
-    ans = [[0] * len(x[0]) for i in range(len(x))]
+    ans = 0
     for i in range(len(x)):
         for j in range(len(x[0])):
-            ans[i][j] = (x[i][j] - y[i][j]) ** 2
-    return ans
-    
+            ans += (x[i][j] - y[i][j]) ** 2
+
+    return math.sqrt(ans)

@@ -93,5 +93,5 @@ def pairwise_distance(x, y):
     Vctorized implementation.
     """
 
-    ans = np.sqrt(np.sum((x - y) ** 2, axis=-1))
+    ans = np.sqrt(np.sum((x[:, np.newaxis] - y) ** 2, axis=-1))
     return ans
