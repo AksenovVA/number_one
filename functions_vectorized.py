@@ -12,9 +12,11 @@ def prod_non_zero_diag(x):
 
     Vectorized implementation.
     """
-
-    pass
-
+    x = np.diag(x)
+    k = np.prod(x != 0)
+    return k
+    
+    
 
 def are_multisets_equal(x, y):
     """Return True if both vectors create equal multisets.
@@ -26,9 +28,9 @@ def are_multisets_equal(x, y):
 
     Vectorized implementation.
     """
-
-    pass
-
+    x = np.sort(x, kind='heapsort')
+    y = np.sort(y, kind='heapsort')
+    return np.array_equal(x, y)
 
 def max_after_zero(x):
     """Find max element after zero in array.
@@ -40,8 +42,11 @@ def max_after_zero(x):
 
     Vectorized implementation.
     """
+    y = x[:-1]
+    i = np.where(y == 0)[0] + 1
+    return np.max(x[i])
 
-    pass
+    
 
 
 def convert_image(img, coefs):
@@ -56,7 +61,7 @@ def convert_image(img, coefs):
     Vectorized implementation.
     """
 
-    pass
+    return np.dot(img, coefs)
 
 
 def run_length_encoding(x):
@@ -70,7 +75,11 @@ def run_length_encoding(x):
     Vectorized implementation.
     """
 
-    pass
+    xx = np.where(np.diff(x) != 0)[0] + 1
+    ans1 = x[xx - 1]
+    ans2 = np.diff(np.concatenate(([0], xx, [len(x)])))
+
+    return (ans1, ans2)
 
 
 def pairwise_distance(x, y):
@@ -84,4 +93,5 @@ def pairwise_distance(x, y):
     Vctorized implementation.
     """
 
-    pass
+    ans = np.sqrt(np.sum((x - y) ** 2, axis=-1))
+    return ans

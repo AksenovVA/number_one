@@ -9,8 +9,13 @@ def prod_non_zero_diag(x):
 
     Not vectorized implementation.
     """
-
-    pass
+    
+    k = 1
+    for i in range(min(len(x), len(x[0]))):
+        if x[i][i] != 0:
+            k *= x[i][i]
+    return k
+   
 
 
 def are_multisets_equal(x, y):
@@ -23,9 +28,9 @@ def are_multisets_equal(x, y):
 
     Not vectorized implementation.
     """
-
-    pass
-
+    x = sorted(x)
+    y = sorted(y)
+    return x == y
 
 def max_after_zero(x):
     """Find max element after zero in array.
@@ -37,8 +42,12 @@ def max_after_zero(x):
 
     Not vectorized implementation.
     """
-
-    pass
+    mx = -1
+    for i in range(len(x) - 1):
+        if x[i] == 0:
+            mx = max(mx, x[i + 1])
+    return mx
+    
 
 
 def convert_image(img, coefs):
@@ -53,7 +62,18 @@ def convert_image(img, coefs):
     Not vectorized implementation.
     """
 
-    pass
+    height, width, num_channels = img.shape
+    
+    # Создаем матрицу для оттенков серого
+    f = np.zeros((height, width))
+    
+    # Проходим по каждому пикселю изображения
+    for i in range(height):
+        for j in range(width):
+            # Считаем взвешенную сумму значений каналов
+            f[i, j] = sum(img[i, j, c] * coef[c] for c in range(num_channels))
+    
+    return f
 
 
 def run_length_encoding(x):
@@ -66,8 +86,16 @@ def run_length_encoding(x):
 
     Not vectorized implementation.
     """
-
-    pass
+    ans1 = [x[0]]
+    ans2 = [1]
+    
+    for i in range(1, len(x)):
+        if ans1[-1] == x[i]:
+            ans2[-1] += 1
+        else:
+            ans1.append(x[i])
+            ans2.append(1)
+    return (ans1, ans2)
 
 
 def pairwise_distance(x, y):
@@ -80,5 +108,9 @@ def pairwise_distance(x, y):
 
     Not vectorized implementation.
     """
-
-    pass
+    ans = [[0] * len(x[0]) for i in range(len(x))]
+    for i in range(len(x)):
+        for j in range(len(x[0])):
+            ans[i][j] = (x[i][j] - y[i][j]) ** 2
+    return ans
+    
